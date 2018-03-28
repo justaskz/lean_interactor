@@ -1,14 +1,13 @@
-require "bundler/setup"
-require "lean_interactor"
+require 'bundler/setup'
+require 'lean_interactor'
+require 'pry'
 
 RSpec.configure do |config|
-  # Enable flags like --only-failures and --next-failure
-  config.example_status_persistence_file_path = ".rspec_status"
-
-  # Disable RSpec exposing methods globally on `Module` and `main`
+  config.example_status_persistence_file_path = '.rspec_status'
   config.disable_monkey_patching!
 
-  config.expect_with :rspec do |c|
+  config.mock_with :rspec do |c|
     c.syntax = :expect
+    c.verify_partial_doubles = true
   end
 end
