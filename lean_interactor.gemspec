@@ -6,10 +6,10 @@ Gem::Specification.new do |spec|
   spec.name          = 'lean_interactor'
   spec.version       = LeanInteractor::VERSION
   spec.authors       = 'Justas Kazakauskas'
-  spec.email         = 'justas.kazakauskas@gmail.com'
+  spec.email         = 'leakymirror@gmail.com'
 
-  spec.summary       = 'LeanInteractor reduce boilerplate code when defining an interactor'
-  spec.description   = 'LeanInteractor reduce boilerplate code when defining an interactor.'
+  spec.summary       = 'LeanInteractor reduces boilerplate code while defining interactor classes'
+  spec.description   = 'LeanInteractor reduces boilerplate code while defining interactor classes.'
   spec.homepage      = 'https://github.com/justaskz/lean_interactor'
   spec.license       = 'MIT'
 
