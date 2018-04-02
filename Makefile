@@ -1,10 +1,13 @@
-build:
-	rm -rf *.gem
-	rm -rf pkg
-	gem build lean_interactor.gemspec
-
 test:
 	@ rspec
 
+build: clear
+	@ bundle
+	@ gem build *.gemspec
+
 release: test build
 	@ gem push *.gem
+
+clear:
+	@ rm -rf pkg
+	@ rm -rf *.gem
