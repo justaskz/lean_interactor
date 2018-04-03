@@ -10,9 +10,13 @@ module LeanInteractor
 
   module ClassMethods
     def initialize_with(*argument_names)
+      return if argument_names.empty?
+
       attr_reader(*argument_names)
       eval LeanInteractor::GenerateMainMethod.for(:self, :for, argument_names)
       eval LeanInteractor::GenerateInitializeMethod.for(argument_names)
+
+      true
     end
   end
 end

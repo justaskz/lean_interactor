@@ -1,48 +1,33 @@
 RSpec.describe LeanInteractor do
-  describe '.run' do
-    subject { interactor.run }
+  describe '.initialize_with' do
+    subject { interactor.initialize_with(*argument_names) }
 
-    let(:interactor) do
-      Class.new do
-        include LeanInteractor
+    let(:argument_names) { [:a, :b] }
+    let(:interactor) { Class.new { include LeanInteractor } }
+    let(:method_definition) { '' }
 
-        def run
-          :result
-        end
-      end
+    it 'defines methods' do
+      expect(interactor)
+        .to receive(:attr_reader)
+        .with(*argument_names)
+
+      expect(LeanInteractor::GenerateMainMethod)
+        .to receive(:for)
+        .with(:self, :for, argument_names)
+        .and_return(method_definition)
+
+      expect(LeanInteractor::GenerateInitializeMethod)
+        .to receive(:for)
+        .with(argument_names)
+        .and_return(method_definition)
+
+      expect(subject).to eq(true)
     end
 
-    it { is_expected.to eq(:result) }
-  end
+    context 'with no arguments' do
+      let(:argument_names) { [] }
 
-  describe '.for' do
-    let(:interactor) do
-      Class.new do
-        include LeanInteractor
-
-        initialize_with :arg_1, :arg_2
-
-        def run
-          arg_1 + arg_2
-        end
-      end
-    end
-
-    let(:arg_1) { 1 }
-    let(:arg_2) { 2 }
-
-    context 'with correct amount of arguments' do
-      subject { interactor.for(arg_1, arg_2) }
-
-      it { is_expected.to eq(3) }
-    end
-
-    context 'with incorrect amount of arguments' do
-      subject { interactor.for(arg_1) }
-
-      it 'raises an error' do
-        expect { subject }.to raise_error(ArgumentError)
-      end
+      it { is_expected.to eq(nil) }
     end
   end
 end
