@@ -18,6 +18,7 @@ class Emails::Send
   def run
     # email sending logic goes here
   end
+end
 ```
 
 ##### With LeanInteractor
