@@ -4,7 +4,7 @@ RSpec.describe LeanInteractor do
       Class.new do
         include LeanInteractor
 
-        initialize_with :arg_1, :arg_2
+        initialize_for :arg_1, :arg_2
 
         def run
           arg_1 + arg_2
@@ -31,11 +31,13 @@ RSpec.describe LeanInteractor do
   end
 
   context 'without arguments' do
-    subject { interactor.run }
+    subject { interactor.call }
 
     let(:interactor) do
       Class.new do
         include LeanInteractor
+
+        initialize_call
 
         def run
           :result
