@@ -1,38 +1,31 @@
 # LeanInteractor
 
-Interactor is a stateless class intended to do one action. It is like function in functional languages. This gem is created to reduce amount of the boilerplate code needed to define an interactor:
+Interactor is a stateless class intended to do one action. It is like function in functional languages.
 
-##### Without LeanInteractor
+If you are working with Rails, interactor is a perfect place to put your bussines logic and keep controllers and models light and clean.
+
+## Usage
+
+Include `LeanInteractor` to your class and define `run` method:
+
 ```ruby
-class Emails::Send
-  def self.for(user)
-    new(user).run
-  end
-
-  attr_reader :user
-
-  def initialize(user)
-    @user = user
-  end
-
-  def run
-    # email sending logic goes here
-  end
-end
-```
-
-##### With LeanInteractor
-```ruby
-class Emails::Send
+class Users::Create
   include LeanInteractor
 
-  initialize_with :user
+  initialize_call :user_params
 
   def run
-    # email sending logic goes here
+    # user creation logic goes here
   end
 end
 ```
+
+And then call your interactor:
+```ruby
+Users::Create.call(user_params)
+```
+
+`LeanInteractor` provides three helper methods: `initialize_call`, `initialize_run` and `initialize_for`. They generate corresponding execution methods: `call`, `run` and `for`. Use them depending on your preference.
 
 ## Installation
 
@@ -50,25 +43,42 @@ Or install it yourself as:
 
     $ gem install lean_interactor
 
-## Usage
+## Motivation
 
-Define interactor like this:
+This gem was created to reduce amount of the boilerplate code needed to define an interactor:
+
+##### Without LeanInteractor
 
 ```ruby
-class Emails::Send
-  include LeanInteractor
+class Users::Create
+  def self.for(user_params)
+    new(user_params).run
+  end
 
-  initialize_with :user
+  attr_reader :user_params
+
+  def initialize(user_params)
+    @user_params = user_params
+  end
 
   def run
-    # email sending logic goes here
+    # user creation logic goes here
   end
 end
 ```
 
-And then call it:
+##### With LeanInteractor
+
 ```ruby
-Emails::Send.for(user)
+class Users::Create
+  include LeanInteractor
+
+  initialize_for :user_params
+
+  def run
+    # user creation logic goes here
+  end
+end
 ```
 
 ## Development
