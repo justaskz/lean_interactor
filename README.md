@@ -51,7 +51,7 @@ This gem was created to reduce amount of the boilerplate code needed to define a
 
 ```ruby
 class Users::Create
-  def self.for(user_params)
+  def self.call(user_params)
     new(user_params).run
   end
 
@@ -73,7 +73,7 @@ end
 class Users::Create
   include LeanInteractor
 
-  initialize_for :user_params
+  initialize_call :user_params
 
   def run
     # user creation logic goes here
