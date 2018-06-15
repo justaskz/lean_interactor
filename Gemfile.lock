@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lean_interactor (0.3.0)
+    lean_interactor (0.3.1)
 
 GEM
   remote: https://rubygems.org/
